@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Tapers Info Generator Tool v1</title>
+</head>
+<body>
+
+<div class="container">
+    <form id="bootlegForm">
+        <h1>Tapers Info Generator Tool v1</h1>
+        
+        <label for="artist">Artist:</label>
+        <input type="text" id="artist" name="artist" placeholder="e.g., Radiohead" required>
+
+        <label for="year">Year:</label>
+        <select id="year" name="year" required></select>
+
+        <label for="month">Month:</label>
+        <select id="month" name="month" required>
+            <option value="01">January</option>
+            <option value="02">February</option>
+            <option value="03">March</option>
+            <option value="04">April</option>
+            <option value="05">May</option>
+            <option value="06">June</option>
+            <option value="07">July</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+
+        <label for="day">Day:</label>
+        <select id="day" name="day" required></select>
+
+        <label for="venue">Venue:</label>
+        <input type="text" id="venue" name="venue" placeholder="e.g., Paradiso" required>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" placeholder="e.g., Amsterdam" required>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" placeholder="e.g., NY">
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" placeholder="e.g., Netherlands" required>
+
+        <label for="tour">Tour:</label>
+        <input type="text" id="tour" name="tour" placeholder="e.g., The Bends Tour"><br>
+
+        <label for="mics">Mics:</label>
+        <input type="text" id="mics" name="mics" placeholder="e.g., AT943" required>
+
+        <label for="power">Power:</label>
+        <input type="text" id="power" name="power" placeholder="e.g., Battery" required>
+
+        <label for="recorder">Recorder:</label>
+        <input type="text" id="recorder" name="recorder" placeholder="e.g., Edirol R-09HR" required>
+
+        <label for="media">Media:</label>
+        <input type="text" id="media" name="media" placeholder="e.g., Sandisk 16GB SDHC" required>
+
+        <label for="device">Device:</label>
+        <input type="text" id="device" name="device" placeholder="e.g., Dell PC" required>
+
+        <label for="initialFormat">Initial Format:</label>
+        <select id="initialFormat" name="initialFormat" required>
+            <option value="16bit WAV">16bit WAV</option>
+            <option value="24bit WAV">24bit WAV</option>
+            <option value="32bit WAV">32bit WAV</option>
+        </select>
+
+        <label for="processingSoftware">Processing Software:</label>
+        <input type="text" id="processingSoftware" name="processingSoftware" placeholder="e.g., Adobe Audition" required>
+
+        <label for="trackSoftware">Tracking Software:</label>
+        <input type="text" id="trackSoftware" name="trackSoftware" placeholder="e.g., Waves" required>
+
+        <label for="conversionSoftware">Conversion Software:</label>
+        <input type="text" id="conversionSoftware" name="conversionSoftware" placeholder="e.g., Trader's Little Helper" required>
+
+        <label for="finalFormat">Final Format:</label>
+        <select id="finalFormat" name="finalFormat" required>
+            <option value="16bit FLAC">16bit FLAC</option>
+            <option value="24bit FLAC">24bit FLAC</option>
+            <option value="32bit WAV">32bit WAV</option>
+        </select>
+
+        <label for="recordedBy">Recorded By:</label>
+        <input type="text" id="recordedBy" name="recordedBy" placeholder="e.g., Your Name" required>
+
+        <label for="tracklist">Tracklist (comma-separated):</label>
+        <textarea id="tracklist" name="tracklist" placeholder="e.g., Track 1, Track 2, Track 3" required></textarea>
+
+        <button type="submit">Generate Info</button>
+    </form>
+
+    <a id="fileDownload" style="display:none">Download File</a>
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>
