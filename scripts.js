@@ -23,9 +23,12 @@ const mics = [
     "Audix Micros SCX1x", 
     "Avantone CK-1", 
     "Busman BSC1", 
-    "Church-Audio B-99A", 
-    "Church-Audio CA-T2", 
-    "Church-Audio STC-9000", 
+    "CA 11 Microphone", 
+    "CA 14 Microphones – Omni", 
+    "CA-11 Omni Microphones", 
+    "CA-14 Cardioid", 
+    "CAFS Microphones", 
+    "Croakie Microphone", 
     "Core Sound Binaural", 
     "Core Sound Budget Binaural", 
     "Core Sound High End Binaural", 
@@ -89,6 +92,7 @@ const mics = [
     "Studio Projects C4", 
     "Studio Projects LSD2"
 ].sort(); // Sort microphones alphabetically
+
 
 const micPower = [
     "Apogee AD1000", "Apogee AD500(e)", "Apogee MiniMe", 
