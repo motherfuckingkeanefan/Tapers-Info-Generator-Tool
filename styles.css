@@ -1,6 +1,6 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff; /* Soft light blue for a calm background */
     margin: 0;
     padding: 20px;
 }
@@ -10,48 +10,107 @@ body {
     margin: auto;
     background: white;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px; /* Slightly larger border-radius for rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
 }
 
 h1 {
     text-align: center;
     color: #333;
+    font-size: 2.5em; /* Increased font size for the title */
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Uppercase for a bold header */
+    letter-spacing: 1px; /* Letter spacing for a more spacious look */
 }
 
 label {
     display: block;
     margin: 10px 0 5px;
-    color: #555;
+    color: #666; /* Darker gray for better contrast */
+    font-weight: bold; /* Bold labels for better visibility */
 }
 
 input, textarea, select {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+    padding: 12px; /* Increased padding for better touch targets */
+    margin-bottom: 15px; /* More space between fields */
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    transition: border 0.3s ease; /* Smooth transition for focus */
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #5cb85c; /* Highlighting border color on focus */
+    outline: none; /* Remove default outline */
 }
 
 button {
     width: 100%;
-    padding: 10px;
-    background-color: #5cb85c;
+    padding: 12px; /* Increased padding for button */
+    background-color: #5cb85c; /* Green button color */
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px; /* Larger font size for the button */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    font-weight: bold; /* Bold button text */
 }
 
 button:hover {
-    background-color: #4cae4c;
+    background-color: #4cae4c; /* Darker green on hover */
 }
 
 #fileDownload {
     margin-top: 20px;
     text-align: center;
-    display: block; /* Ensure it shows up when activated */
+    display: none; /* Default hidden */
     color: #007bff;
+    text-decoration: underline; /* Underlined text for emphasis */
+    font-size: 18px; /* Larger font size */
+}
+
+.updates-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.updates-section h2 {
+    font-size: 1.8em; /* Increased header size */
+    margin-bottom: 15px;
+    color: #333; /* Darker header color */
+}
+
+#updatesList {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+#updatesList li {
+    margin-bottom: 10px;
+    font-size: 16px; /* Consistent font size for list items */
+    line-height: 1.5; /* Better line spacing for readability */
+    color: #555; /* Darker text for better contrast */
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px; /* Reduce padding on smaller screens */
+    }
+
+    h1 {
+        font-size: 2em; /* Smaller title on mobile */
+    }
+
+    button {
+        font-size: 16px; /* Smaller button font on mobile */
+    }
+
+    #fileDownload {
+        font-size: 16px; /* Consistent font size on mobile */
+    }
 }
