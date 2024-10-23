@@ -26,63 +26,90 @@ window.onload = function() {
         option.textContent = i;
         daySelect.appendChild(option);
     }
+
+    // Call the function to display updates
+    displayUpdates();
 };
 
+// Event listener for the Generate Info button
 document.getElementById("bootlegForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent form submission
 
-    // Get values from the form
-    const artist = document.getElementById("artist").value;
+    // Get values from the form (required fields)
+    const artist = document.getElementById("artist").value.trim();
     const year = document.getElementById("year").value;
     const month = document.getElementById("month").value.padStart(2, '0'); // Ensure two digits for month
     const day = document.getElementById("day").value.padStart(2, '0'); // Ensure two digits for day
     const date = `${year}-${month}-${day}`; // Combine year, month, and day
-    const venue = document.getElementById("venue").value; // Get venue input
-    const city = document.getElementById("city").value;
-    const state = document.getElementById("state").value; // Can be empty if not a US show
-    const country = document.getElementById("country").value;
-    const tour = document.getElementById("tour").value; // Get tour input
-    const mics = document.getElementById("mics").value;
-    const power = document.getElementById("power").value;
-    const recorder = document.getElementById("recorder").value;
-    const media = document.getElementById("media").value;
-    const device = document.getElementById("device").value;
-    const initialFormat = document.getElementById("initialFormat").value;
-    const processingSoftware = document.getElementById("processingSoftware").value;
-    const trackSoftware = document.getElementById("trackSoftware").value;
-    const conversionSoftware = document.getElementById("conversionSoftware").value;
-    const finalFormat = document.getElementById("finalFormat").value;
-    const recordedBy = document.getElementById("recordedBy").value;
-    const tracklistInput = document.getElementById("tracklist").value;
+    const venue = document.getElementById("venue").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const state = document.getElementById("state").value.trim(); // Can be empty if not a US show
+    const country = document.getElementById("country").value.trim();
+    const finalFormat = document.getElementById("finalFormat").value.trim();
 
-    // Split tracklist by commas and trim spaces
-    const tracklist = tracklistInput.split(',').map(track => track.trim());
+    // Optional fields
+    const tour = document.getElementById("tour").value.trim(); // Get tour input (optional)
+    const mics = document.getElementById("mics").value.trim(); // Get mics (optional)
+    const power = document.getElementById("power").value.trim(); // Get power (optional)
+    const recorder = document.getElementById("recorder").value.trim(); // Get recorder (optional)
+    const media = document.getElementById("media").value.trim(); // Get media (optional)
+    const device = document.getElementById("device").value.trim(); // Get device (optional)
+    const initialFormat = document.getElementById("initialFormat").value.trim(); // Get initial format (optional)
+    const processingSoftware = document.getElementById("processingSoftware").value.trim(); // Get processing software (optional)
+    const trackSoftware = document.getElementById("trackSoftware").value.trim(); // Get track software (optional)
+    const conversionSoftware = document.getElementById("conversionSoftware").value.trim(); // Get conversion software (optional)
+    const recordedBy = document.getElementById("recordedBy").value.trim(); // Recorded by (optional)
+    const tracklistInput = document.getElementById("tracklist").value.trim(); // Tracklist (optional)
 
-  // Generate info content
-let info = `${artist}\n${date}\n${venue}\n${city}${state ? ', ' + state : ''}, ${country}\n\n`; 
+    // Ensure required fields are filled out
+    if (!artist || !date || !venue || !city || !country || !finalFormat) {
+        alert("Please fill out the required fields: Artist, Date, Venue, City, Country, and Final Format.");
+        return;
+    }
 
+    // Split tracklist by commas and trim spaces (if provided)
+    const tracklist = tracklistInput ? tracklistInput.split(',').map(track => track.trim()) : [];
 
-    // Add tour
-    info += `Tour: ${tour}\n\n`; // Added line break
+    // Generate info content
+    let info = `${artist}\n${date}\n${venue}\n${city}${state ? ', ' + state : ''}, ${country}\n\n`; 
 
-    // Add source in blockchain format
-    info += `Source: ${mics} > ${power} > ${recorder}\n\n`;
+    // Add tour if provided
+    if (tour) info += `Tour: ${tour}\n\n`;
 
-    // Add transfer process to the info
-    info += `Transfer: ${media} > ${device} > ${initialFormat} > ${processingSoftware} > ${trackSoftware} > ${conversionSoftware} > ${finalFormat}\n\n`;
+    // Add source info dynamically (only if filled in)
+    if (mics || power || recorder) {
+        info += `Source: `;
+        if (mics) info += `${mics} > `;
+        if (power) info += `${power} > `;
+        if (recorder) info += `${recorder}`;
+        info += '\n\n'; // Add line break after source if any source info exists
+    }
 
-    info += `Recorded and transferred by ${recordedBy}.\n\n`;
+    // Add transfer process dynamically (optional fields)
+    if (media || device || initialFormat || processingSoftware || trackSoftware || conversionSoftware || finalFormat) {
+        info += `Transfer: `;
+        if (media) info += `${media} > `;
+        if (device) info += `${device} > `;
+        if (initialFormat) info += `${initialFormat} > `;
+        if (processingSoftware) info += `${processingSoftware} > `;
+        if (trackSoftware) info += `${trackSoftware} > `;
+        if (conversionSoftware) info += `${conversionSoftware} > `;
+        info += `${finalFormat}\n\n`; // Always include final format
+    }
 
-    // Add tracklist heading
-    info += `Tracklist:\n`;
-    // Add tracklist items
-    tracklist.forEach((track, index) => {
-        info += `${String(index + 1).padStart(2, '0')} ${track}\n`;
-    });
+    // Add recorded by if provided
+    if (recordedBy) info += `Recorded and transferred by ${recordedBy}.\n\n`;
+
+    // Add tracklist if provided
+    if (tracklist.length > 0) {
+        info += `Tracklist:\n`;
+        tracklist.forEach((track, index) => {
+            info += `${String(index + 1).padStart(2, '0')} ${track}\n`;
+        });
+    }
 
     // Get the current date for the footer
     const compilationDate = new Date().toLocaleDateString(); // Format: MM/DD/YYYY
-    // Add generated by message with compilation date
     info += `\nTXT File compiled on ${compilationDate}.\n`;
 
     // Create a Blob for the text file
@@ -90,11 +117,45 @@ let info = `${artist}\n${date}\n${venue}\n${city}${state ? ', ' + state : ''}, $
     const url = URL.createObjectURL(blob);
 
     // Set up the download link
+    const fileName = `${artist} - ${date} - ${venue}, ${city}${state ? ', ' + state : ''}, ${country} ${mics ? `{${mics}}` : ''}{${finalFormat}}.txt`;
     const downloadLink = document.getElementById("fileDownload");
-    const fileName = `${artist} [${date}] ${venue}, ${city}${state ? ', ' + state : ''}, ${country} (${finalFormat}).txt`;
     downloadLink.href = url;
     downloadLink.download = fileName;
 
     // Display the download link
-    downloadLink.style.display = 'block';
+    downloadLink.style.display = 'block'; // Show the download link
 });
+
+// Updates array to hold the update entries
+const updates = [
+    {
+        version: "v1.2",
+        date: "2024-10-24", // Update with the current date
+        description: "Added a dynamic updates section for better tracking of changes."
+    },
+    {
+        version: "v1.1",
+        date: "2024-10-23",
+        description: "No required fields anymore. Optional fields now behave flexibly, and users are not forced to enter power, mics, or other info."
+    },
+    {
+        version: "v1.0",
+        date: "2024-10-22",
+        description: "Initial release. Info TXT generator for AUD sources with flexible form fields."
+    }
+];
+
+// Function to display updates
+function displayUpdates() {
+    const updatesList = document.getElementById("updatesList");
+    
+    // Clear existing list
+    updatesList.innerHTML = '';
+
+    // Append updates to the list
+    updates.forEach(update => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<strong>${update.version} - ${update.date}</strong>: ${update.description}`;
+        updatesList.appendChild(listItem);
+    });
+}
