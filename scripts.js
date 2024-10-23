@@ -136,7 +136,7 @@ const updates = [
     {
         version: "v1.1",
         date: "2024-10-23",
-        description: "No required fields anymore. Optional fields now behave flexibly, and users are not forced to enter power, mics, or other info."
+        description: "Optional fields are now flexible, and users are not required to enter details like power or media. The only required fields are: Artist, Date, Venue, City, Country, and Final Format."
     },
     {
         version: "v1.0",
