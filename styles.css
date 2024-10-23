@@ -1,74 +1,75 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f8ff; /* Soft light blue for a calm background */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
 }
 
 .container {
-    max-width: 600px;
-    margin: auto;
+    max-width: 600px;  /* Limits the width for better alignment on larger screens */
+    margin: 20px auto;  /* Centers the container with some top margin */
     background: white;
     padding: 20px;
-    border-radius: 10px; /* Slightly larger border-radius for rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h1 {
     text-align: center;
     color: #333;
-    font-size: 2.5em; /* Increased font size for the title */
-    margin-bottom: 20px;
-    text-transform: uppercase; /* Uppercase for a bold header */
-    letter-spacing: 1px; /* Letter spacing for a more spacious look */
+    margin-bottom: 20px; /* Adds some spacing below the heading */
 }
 
 label {
     display: block;
     margin: 10px 0 5px;
-    color: #666; /* Darker gray for better contrast */
-    font-weight: bold; /* Bold labels for better visibility */
+    color: #555;
+    font-size: 14px; /* Smaller font for a cleaner look */
 }
 
 input, textarea, select {
     width: 100%;
-    padding: 12px; /* Increased padding for better touch targets */
+    padding: 10px;  /* Slightly increased padding for better text box feel */
     margin-bottom: 15px; /* More space between fields */
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    transition: border 0.3s ease; /* Smooth transition for focus */
+    box-sizing: border-box;  /* Ensures padding is included in width calculation */
 }
 
-input:focus, textarea:focus, select:focus {
-    border-color: #5cb85c; /* Highlighting border color on focus */
-    outline: none; /* Remove default outline */
+textarea {
+    resize: vertical; /* Allows users to adjust the height of the textarea only */
+    min-height: 120px;  /* Minimum height for text area */
 }
 
 button {
     width: 100%;
-    padding: 12px; /* Increased padding for button */
-    background-color: #5cb85c; /* Green button color */
+    padding: 12px;  /* Slightly larger padding for a more prominent button */
+    background-color: #5cb85c;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 18px; /* Larger font size for the button */
-    transition: background-color 0.3s ease; /* Smooth transition */
-    font-weight: bold; /* Bold button text */
+    font-size: 16px;
+    font-weight: bold; /* Makes the button text more visible */
+    margin-top: 10px; /* Adds space above the button */
 }
 
 button:hover {
-    background-color: #4cae4c; /* Darker green on hover */
+    background-color: #4cae4c;
 }
 
 #fileDownload {
     margin-top: 20px;
     text-align: center;
-    display: none; /* Default hidden */
+    display: block; /* Ensure it shows up when activated */
     color: #007bff;
-    text-decoration: underline; /* Underlined text for emphasis */
-    font-size: 18px; /* Larger font size */
+    font-size: 14px;
+    text-decoration: none;  /* Removes underline */
+}
+
+#fileDownload:hover {
+    text-decoration: underline;  /* Adds underline on hover for clearer interaction */
 }
 
 .updates-section {
@@ -80,37 +81,17 @@ button:hover {
 }
 
 .updates-section h2 {
-    font-size: 1.8em; /* Increased header size */
-    margin-bottom: 15px;
-    color: #333; /* Darker header color */
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
 }
 
 #updatesList {
     list-style-type: disc;
     padding-left: 20px;
+    color: #555;
 }
 
 #updatesList li {
     margin-bottom: 10px;
-    font-size: 16px; /* Consistent font size for list items */
-    line-height: 1.5; /* Better line spacing for readability */
-    color: #555; /* Darker text for better contrast */
-}
-
-@media (max-width: 600px) {
-    .container {
-        padding: 15px; /* Reduce padding on smaller screens */
-    }
-
-    h1 {
-        font-size: 2em; /* Smaller title on mobile */
-    }
-
-    button {
-        font-size: 16px; /* Smaller button font on mobile */
-    }
-
-    #fileDownload {
-        font-size: 16px; /* Consistent font size on mobile */
-    }
 }
