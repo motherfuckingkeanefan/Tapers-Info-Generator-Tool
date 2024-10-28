@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Tapers Info Generator Tool v1.6</title>
+    <title>Tapers Info Generator Tool v1.5</title>
 </head>
 <body>
 
 <div class="container">
     <form id="bootlegForm">
-        <h1>Tapers Info Generator Tool v1.6</h1>
+        <h1>Tapers Info Generator Tool v1.5</h1>
         
         <!-- Optional Fields -->
         <label for="artist">Artist:</label>
@@ -249,9 +249,14 @@
         <input type="text" id="tour" name="tour" placeholder="e.g., The Bends"><br>
 
         <label for="mics">Microphones:</label>
-<select id="mics" name="mics">
-    <option value="">Select Microphone</option>
-</select>
+        <select id="mics" name="mics">
+            <option value="">Select Microphone</option>
+            <!-- Microphone options and "Other" will be added by JavaScript -->
+        </select>
+        <input type="text" id="otherMic" name="otherMic" placeholder="Enter custom microphone" style="display: none;">
+        
+
+
 <!-- Mic Configuration Dropdown -->
 <label for="micConfig">Mic Configuration:</label>
 <select id="micConfig" name="micConfig">
@@ -267,19 +272,23 @@
 <label for="power">Microphone Power Supply:</label>
 <select id="power" name="power">
     <option value="">Select Power Supply</option>
+    <!-- Options will be dynamically populated by JavaScript -->
 </select>
+<input type="text" id="otherPower" name="otherPower" placeholder="Enter custom power supply" style="display: none;">
 
-<label for="recorder">Audio Recorders:</label>
-<select id="recorder" name="recorder">
-    <option value="">Select Audio Recorder</option>
+
+<label for="recorders">Recorders:</label>
+<select id="recorders" name="recorders">
+    <option value="">Select Recorder</option>
 </select>
+<input type="text" id="otherRecorder" name="otherRecorder" placeholder="Enter custom recorder" style="display: none;">
+
 
         
 
 <label for="media">Media:</label>
 <select id="media" name="media">
-        <option value="">Select Media</option> <!-- Placeholder option -->
-    <!-- Options will be populated by JavaScript -->
+    <option value="">Select Media</option>
 </select>
 
 
