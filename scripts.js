@@ -144,7 +144,6 @@ const recorders = [
     "Edirol R-05", 
     "Edirol R-09", 
     "Edirol R-09HR", 
-    "Edirol R09H", 
     "Edirol R4 Pro", 
     "Edirol R44",
     "Roland R-26",
