@@ -53,6 +53,8 @@ const mics = [
     "Graham Patten DMIC-20", 
     "Graham Patten DMIC-24", 
     "Hosa MIT-176", 
+    "Line Audio CM3",
+    "Line Audio CM4",
     "MBHO 440", 
     "MBHO 603-KAx", 
     "MBHO 603A-KAx", 
