@@ -210,48 +210,39 @@ const recorders = [
 // Updates array to hold the update entries
 // Updates array to hold the update entries
 const updates = [
-    {
-        version: "v1.6",
-        date: "2024-10-27",
-        description: "Modified Transfer section in TXT file to display Media before Initial Format for better readability. Enhanced data entry consistency for Transfer details."
-    },
+
     {
         version: "v1.5",
         date: "2024-10-27",
-        description: "Added dropdowns for Sampling Rate, Mic Configuration, and Country fields to improve data entry accuracy and ease of use."
+        description: "Added 'Other' option with custom input fields for Microphones, Recorders, and Power Supply. If 'Other' is selected, users can add custom gear details that appear in the source lineage."
     },
     {
         version: "v1.4",
         date: "2024-10-24",
-        description: "Added dropdowns for Microphones, Power Supply, and Recorders selections to enhance data entry options."
+        description: "Dropdowns for Microphones, Power Supply, Recorders, and Media are now dynamically populated with predefined options."
     },
     {
         version: "v1.3",
-        date: "2024-10-24",
-        description: "Added a dynamic updates section for better tracking of changes."
+        date: "2024-10-23",
+        description: "Enhanced Transfer section: Media now appears before the initial format in the lineage chain."
     },
     {
         version: "v1.2",
-        date: "2024-10-23",
+        date: "2024-10-22",
         description: "Optional fields are now flexible, and users are not required to enter details like power or media. The only required fields are: Artist, Date, Venue, City, Country, and Final Format."
     },
     {
         version: "v1.1",
-        date: "2024-10-22",
+        date: "2024-10-21",
         description: "Initial release. Info TXT generator for AUD sources with flexible form fields."
     }
 ];
 
-
-
 // Function to display updates
 function displayUpdates() {
     const updatesList = document.getElementById("updatesList");
-    
-    // Clear existing list to avoid duplicates
-    updatesList.innerHTML = '';
+    updatesList.innerHTML = ''; // Clear existing list to avoid duplicates
 
-    // Append each update as a list item
     updates.forEach(update => {
         const listItem = document.createElement("li");
         listItem.innerHTML = `<strong>${update.version} - ${update.date}</strong>: ${update.description}`;
@@ -264,15 +255,7 @@ window.onload = function() {
     // Populate year dropdown
     const yearSelect = document.getElementById("year");
     const currentYear = new Date().getFullYear();
-
-    // Add the current year first
-    const currentYearOption = document.createElement("option");
-    currentYearOption.value = currentYear;
-    currentYearOption.textContent = currentYear;
-    yearSelect.appendChild(currentYearOption);
-
-    // Add previous years in descending order
-    for (let i = currentYear - 1; i >= 1950; i--) {
+    for (let i = currentYear; i >= 1950; i--) {
         const option = document.createElement("option");
         option.value = i;
         option.textContent = i;
@@ -283,148 +266,130 @@ window.onload = function() {
     const daySelect = document.getElementById("day");
     for (let i = 1; i <= 31; i++) {
         const option = document.createElement("option");
-        option.value = String(i).padStart(2, '0'); // Ensure two digits
+        option.value = String(i).padStart(2, '0');
         option.textContent = i;
         daySelect.appendChild(option);
     }
 
-    // Populate mic dropdown (assumes `mics` is an array of microphone options)
-    const micSelect = document.getElementById("mics");
-    if (typeof mics !== 'undefined') {
-        mics.forEach(mic => {
-            const option = document.createElement("option");
-            option.value = mic;
-            option.textContent = mic;
-            micSelect.appendChild(option);
-        });
-    }
+    // Populate dropdowns with "Other" option for dynamic input
+    populateDropdown("mics", mics, "otherMic");
+    populateDropdown("power", micPower, "otherPower");
+    populateDropdown("recorders", recorders, "otherRecorder");
 
-    // Populate power dropdown (assumes `micPower` is an array of power options)
-    const powerSelect = document.getElementById("power");
-    if (typeof micPower !== 'undefined') {
-        micPower.forEach(power => {
-            const option = document.createElement("option");
-            option.value = power;
-            option.textContent = power;
-            powerSelect.appendChild(option);
-        });
-    }
-
-    // Populate recorder dropdown (assumes `recorders` is an array of recorder options)
-    const recorderSelect = document.getElementById("recorder");
-    if (typeof recorders !== 'undefined') {
-        recorders.forEach(recorder => {
-            const option = document.createElement("option");
-            option.value = recorder;
-            option.textContent = recorder;
-            recorderSelect.appendChild(option);
-        });
-    }
-
-    // Populate media dropdown if it exists
+    // Populate Media dropdown without "Other" option
     const mediaSelect = document.getElementById("media");
-    if (mediaSelect && Array.isArray(mediaOptions)) {
-        mediaOptions.forEach(media => {
-            const option = document.createElement("option");
-            option.value = media;
-            option.textContent = media;
-            mediaSelect.appendChild(option);
-        });
-    }
+    mediaOptions.forEach(media => {
+        const option = document.createElement("option");
+        option.value = media;
+        option.textContent = media;
+        mediaSelect.appendChild(option);
+    });
 
-    // Display the updates on page load
+    // Display updates on page load
     displayUpdates();
 };
 
+// Helper function to populate dropdowns and add "Other" option
+function populateDropdown(elementId, optionsArray, otherElementId) {
+    const selectElement = document.getElementById(elementId);
+    optionsArray.forEach(option => {
+        const opt = document.createElement("option");
+        opt.value = option;
+        opt.textContent = option;
+        selectElement.appendChild(opt);
+    });
+    selectElement.appendChild(new Option("Other", "other"));
+    selectElement.addEventListener("change", function() {
+        document.getElementById(otherElementId).style.display = this.value === "other" ? "block" : "none";
+    });
+}
 
 // Form submission event listener
 document.getElementById("bootlegForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent form submission
 
-    // Collect and process values from form with trimming and padding adjustments
+    // Get the selected microphone, or custom entry if "Other" is selected
+    const selectedMic = document.getElementById("mics").value === "other"
+        ? document.getElementById("otherMic").value.trim()
+        : document.getElementById("mics").value.trim();
+
+    // Get the selected recorder, or custom entry if "Other" is selected
+    const selectedRecorder = document.getElementById("recorders").value === "other"
+        ? document.getElementById("otherRecorder").value.trim()
+        : document.getElementById("recorders").value.trim();
+
+    // Get the selected power supply, or custom entry if "Other" is selected
+    const selectedPower = document.getElementById("power").value === "other"
+        ? document.getElementById("otherPower").value.trim()
+        : document.getElementById("power").value.trim();
+
+    // Additional fields
     const artist = document.getElementById("artist").value.trim();
     const year = document.getElementById("year").value;
-    const month = document.getElementById("month").value.padStart(2, '0'); // Ensure two digits for month
-    const day = document.getElementById("day").value.padStart(2, '0'); // Ensure two digits for day
-    const date = `${year}-${month}-${day}`; // Combine year, month, and day
+    const month = document.getElementById("month").value.padStart(2, '0');
+    const day = document.getElementById("day").value.padStart(2, '0');
+    const date = `${year}-${month}-${day}`;
     const venue = document.getElementById("venue").value.trim();
     const city = document.getElementById("city").value.trim();
-    const state = document.getElementById("state").value.trim(); // Optional for non-US shows
-    const country = document.getElementById("country").value; // Get selected country
-    const initialBitDepth = document.getElementById("initialBitDepth")?.value.trim(); // Initial bit depth
-    const initialSampleRate = document.getElementById("initialSampleRate")?.value.trim(); // Initial sample rate
-    const finalBitDepth = document.getElementById("finalBitDepth")?.value.trim(); // Final bit depth
-    const finalSampleRate = document.getElementById("finalSampleRate")?.value.trim(); // Final sample rate
-
-    // Optional fields
-    const tour = document.getElementById("tour").value.trim();
-    const mics = document.getElementById("mics").value.trim();
-    const power = document.getElementById("power").value.trim();
-    const recorder = document.getElementById("recorder").value.trim();
-    const micConfig = document.getElementById("micConfig").value.trim();
-    const media = document.getElementById("media").value.trim(); // Get selected media
+    const state = document.getElementById("state").value.trim();
+    const country = document.getElementById("country").value;
+    const tour = document.getElementById("tour").value.trim(); // Include Tour
+    const finalBitDepth = document.getElementById("finalBitDepth")?.value.trim();
+    const finalSampleRate = document.getElementById("finalSampleRate")?.value.trim();
+    const initialBitDepth = document.getElementById("initialBitDepth")?.value.trim();
+    const initialSampleRate = document.getElementById("initialSampleRate")?.value.trim();
+    const selectedMedia = document.getElementById("media").value.trim();
     const device = document.getElementById("device").value.trim();
     const processingSoftware = document.getElementById("processingSoftware").value.trim();
     const trackSoftware = document.getElementById("trackSoftware").value.trim();
     const conversionSoftware = document.getElementById("conversionSoftware").value.trim();
     const recordedBy = document.getElementById("recordedBy").value.trim();
     const tracklistInput = document.getElementById("tracklist").value.trim();
-
-    // Ensure required fields are filled out
-    if (!artist || !date || !venue || !city || !country || !finalBitDepth || !finalSampleRate) {
-        alert("Please fill out the required fields: Artist, Date, Venue, City, Country, Final Bit Depth, and Final Sample Rate.");
-        return;
-    }
-
-    // Split tracklist by commas and trim spaces (if provided)
     const tracklist = tracklistInput ? tracklistInput.split(',').map(track => track.trim()) : [];
 
-    // Generate info content in the specified format
+    // Generate the info content
     let info = `${artist}\n${date}\n${venue}\n${city}${state ? ', ' + state : ''}, ${country}\n\n`;
 
-    // Add tracklist if provided (placing it above Source)
+    if (tour) info += `Tour: ${tour}\n\n`; // Include tour if provided
+
     if (tracklist.length > 0) {
         info += `Tracklist:\n`;
         tracklist.forEach((track, index) => {
             info += `${String(index + 1).padStart(2, '0')} ${track}\n`;
         });
-        info += '\n'; // Single break after tracklist
+        info += '\n';
     }
 
-    // Add source info with Mic Configuration
-    if (mics || power || recorder) {
-        info += `Source: `;
-        if (mics) info += `${mics}${micConfig ? ` (${micConfig})` : ''} > `;
-        if (power) info += `${power} > `;
-        if (recorder) info += `${recorder}`;
-        info += '\n\n'; // Single break after source
-    }
+    // Source section with custom gear
+    let sourceInfo = "Source: ";
+    sourceInfo += selectedMic ? `${selectedMic} > ` : "";
+    sourceInfo += selectedPower ? `${selectedPower} > ` : "";
+    sourceInfo += selectedRecorder ? `${selectedRecorder}` : "";
+    info += `${sourceInfo}\n\n`;
 
-    // Adjust Transfer section so Media comes first
-    info += `Transfer: `;
-    if (media) info += `${media} > `; // Media appears first
-    info += `${initialBitDepth}/${initialSampleRate} WAV`; // Initial Format follows Media
-    if (device) info += ` > ${device}`;
-    if (processingSoftware) info += ` > ${processingSoftware}`;
-    if (trackSoftware) info += ` > ${trackSoftware}`;
-    if (conversionSoftware) info += ` > ${conversionSoftware}`;
-    info += ` > ${finalBitDepth}/${finalSampleRate} FLAC\n\n`; // Final Format at the end
+    // Add full Transfer section with all provided options
+    let transferInfo = "Transfer: ";
+    transferInfo += selectedMedia ? `${selectedMedia} > ` : "";
+    transferInfo += initialBitDepth && initialSampleRate ? `${initialBitDepth}/${initialSampleRate} WAV > ` : "";
+    transferInfo += device ? `${device} > ` : "";
+    transferInfo += processingSoftware ? `${processingSoftware} > ` : "";
+    transferInfo += trackSoftware ? `${trackSoftware} > ` : "";
+    transferInfo += conversionSoftware ? `${conversionSoftware} > ` : "";
+    transferInfo += finalBitDepth && finalSampleRate ? `${finalBitDepth}/${finalSampleRate} FLAC` : "";
+    info += `${transferInfo}\n\n`;
 
-    // Add recorded by if provided
+    // Add recorded by information if provided
     if (recordedBy) info += `Recorded and transferred by ${recordedBy}.\n\n`;
 
-    // Get the current date for the footer
-    const compilationDate = new Date().toLocaleDateString(); // Format: MM/DD/YYYY
-    info += `TXT File compiled on ${compilationDate}.\n`; // Single break before footer
+    // Get current date for footer
+    const compilationDate = new Date().toLocaleDateString();
+    info += `TXT File compiled on ${compilationDate}.\n`;
 
-    // Create a Blob for the text file
+    // Create Blob and setup download link
     const blob = new Blob([info], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-
-    // Set up the download link
-    const fileName = `${artist} - ${date} - ${city}, ${country} - AUD.txt`;
     const downloadLink = document.getElementById("fileDownload");
     downloadLink.href = url;
-    downloadLink.download = fileName;
-    downloadLink.style.display = 'block'; // Display the download link
+    downloadLink.download = `${artist} - ${date} - ${city}, ${country} - AUD.txt`;
+    downloadLink.style.display = 'block';
 });
