@@ -203,7 +203,7 @@ const recorders = [
     "Sony D7", 
     "Sony D8", 
     "Sony M1", 
-    "Sony M10", 
+    "Sony PCM-M10", 
     "Sony MZ-NH1 Hi-MD", 
     "Sony PCM-M1", 
     "Sony TCD-D8", 
