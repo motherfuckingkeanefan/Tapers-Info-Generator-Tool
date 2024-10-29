@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Tapers Info Generator Tool v1.5</title>
+    <title>Tapers Info Generator Tool v1.6</title>
 </head>
 <body>
 
 <div class="container">
     <form id="bootlegForm">
-        <h1>Tapers Info Generator Tool v1.5</h1>
+        <h1>Tapers Info Generator Tool v1.6</h1>
         
         <!-- Optional Fields -->
         <label for="artist">Artist:</label>
-        <input type="text" id="artist" name="artist" placeholder="e.g., Radiohead">
+<select id="artist" name="artist">
+    <option value="">Select Artist</option>
+    <!-- Artist options will be dynamically populated by JavaScript -->
+</select>
+<input type="text" id="otherArtist" name="otherArtist" placeholder="Enter custom artist" style="display: none;">
+
+
 
         <label for="year">Year:</label>
         <select id="year" name="year"></select>
@@ -294,8 +300,14 @@
 
 
 
-        <label for="device">Device:</label>
-        <input type="text" id="device" name="device" placeholder="e.g., Dell PC">
+       <!-- Device Dropdown -->
+<label for="device">Device:</label>
+<select id="device" name="device">
+    <option value="">Select Device</option>
+    <!-- Device options will be populated dynamically with JavaScript -->
+</select>
+<input type="text" id="otherDevice" name="otherDevice" placeholder="Enter custom device" style="display: none;">
+
 
         <label for="initialBitDepth">Initial Bit Depth:</label>
 <select id="initialBitDepth" name="initialBitDepth">
@@ -312,14 +324,45 @@
             <option value="96 kHz">96 kHz</option>
         </select>
 
-        <label for="processingSoftware">Processing Software:</label>
-        <input type="text" id="processingSoftware" name="processingSoftware" placeholder="e.g., Adobe Audition">
+       <!-- Processing Software Dropdown -->
+<label for="processingSoftware">Processing Software:</label>
+<select id="processingSoftware" name="processingSoftware">
+    <option value="">Select Processing Software</option>
+    <option value="GoldWave">GoldWave</option>
+    <option value="Izotope Ozone">Izotope Ozone</option>
+    <option value="Wavelab Pro">Wavelab Pro</option>
+    <option value="Adobe Audition">Adobe Audition</option>
+    <option value="WaveLab">WaveLab</option>
+    <option value="Sound Forge Pro">Sound Forge Pro</option>
+    <option value="Reaper">Reaper</option>
+    <option value="Samplitude">Samplitude</option>
+    <option value="Cubase">Cubase</option>
+    <option value="Sound Studio">Sound Studio</option>
+    <option value="other">Other</option>
+</select>
+<input type="text" id="otherProcessingSoftware" name="otherProcessingSoftware" placeholder="Enter custom processing software" style="display: none;">
 
-        <label for="trackSoftware">Tracking Software:</label>
-        <input type="text" id="trackSoftware" name="trackSoftware" placeholder="e.g., CD Wave Editor">
+<!-- Tracking Software Dropdown -->
+<label for="trackingSoftware">Tracking Software:</label>
+<select id="trackingSoftware" name="trackingSoftware">
+    <option value="">Select Tracking Software</option>
+    <option value="CD Wave">CD Wave</option>
+    <option value="Audacity">Audacity</option>
+    <option value="other">Other</option>
+</select>
+<input type="text" id="otherTrackingSoftware" name="otherTrackingSoftware" placeholder="Enter custom tracking software" style="display: none;">
 
-        <label for="conversionSoftware">Conversion Software:</label>
-        <input type="text" id="conversionSoftware" name="conversionSoftware" placeholder="e.g., Trader's Little Helper">
+<!-- Conversion Software Dropdown -->
+<label for="conversionSoftware">Conversion Software:</label>
+<select id="conversionSoftware" name="conversionSoftware">
+    <option value="">Select Conversion Software</option>
+    <option value="Trader's Little Helper">Trader's Little Helper</option>
+    <option value="FLAC Frontend">FLAC Frontend</option>
+    <option value="dBpoweramp">dBpoweramp</option>
+    <option value="other">Other</option>
+</select>
+<input type="text" id="otherConversionSoftware" name="otherConversionSoftware" placeholder="Enter custom conversion software" style="display: none;">
+
 
         <label for="finalBitDepth">Final Bit Depth:</label>
 <select id="finalBitDepth" name="finalBitDepth">
