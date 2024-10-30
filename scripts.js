@@ -12,6 +12,7 @@ const mics = [
     "ADK A51TL", 
     "ADK SC-1", 
     "ADK TL", 
+    "AKG P170",
     "Audio Technica AT825", 
     "Audio Technica AT853a", 
     "Audio Technica AT853Rx", 
@@ -53,6 +54,7 @@ const mics = [
     "Graham Patten ADC-24", 
     "Graham Patten DMIC-20", 
     "Graham Patten DMIC-24", 
+    "Heil PR 30",
     "Hosa MIT-176", 
     "Line Audio CM3",
     "Line Audio CM4",
@@ -211,6 +213,7 @@ const recorders = [
     "Sony PCM-M10", 
     "Sony MZ-NH1 Hi-MD", 
     "Sony PCM-M1", 
+    "Sony PCM-A10",
     "Sony TCD-D8", 
     "Tascam DA-P1", 
     "Tascam DR-100", 
@@ -223,7 +226,9 @@ const recorders = [
     "Tascam HD-P2", 
     "Zoom F3", // 32-bit float recorder
     "Zoom F6", // 32-bit float recorder
-    "Zoom h4/h4n"
+    "Zoom h4/h4n",
+    "Zoom F8",
+    "Zoom H6"
 ].sort(); // Sort recorders alphabetically
 
 const artists = [
