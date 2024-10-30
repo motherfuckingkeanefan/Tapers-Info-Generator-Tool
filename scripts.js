@@ -128,7 +128,7 @@ const mediaOptions = [
     "MicroSD Card",
     "CD-R",
     "DVD-R"
-].sort(); // Sort recorders alphabetically
+]
 
 
 const micPower = [
