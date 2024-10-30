@@ -306,7 +306,7 @@ const artists = [
     "Rory Gallagher", "The Roots", "Rosanne Cash", "Roxy Music", "Roy Orbison", "Ruff Ryders",
     "Rufus Wainwright", "Rush", "The Ruts", "Saint Etienne", "Salt-n-Pepa", "Sam Cooke", "Sam Hunt",
     "Sam Smith", "Sammy Hagar", "Sandy Denny", "Schiller", "Scorpions", "Scott Walker",
-    "Secret Garden", "Selena Gomez", "Sensational Alex Harvey Band", "Serge Gainsbourg",
+    "Seasick Steve", "Secret Garden", "Selena Gomez", "Sensational Alex Harvey Band", "Serge Gainsbourg",
     "Sergio Mendes", "Sex Pistols", "Shaggy", "Sham 69", "Shania Twain", "Sheryl Crow",
     "Simple Minds", "Siouxsie & The Banshees", "Slayer", "Slick Rick", "Sly & Robbie", "Small Faces",
     "The Smashing Pumpkins", "Smokey Robinson", "Smokey Robinson & The Miracles", "Snoop Dogg",
