@@ -94,7 +94,11 @@ const mics = [
     "Superlux CM-H8K/x", 
     "Sennheiser MKH-8040", 
     "Studio Projects C4", 
-    "Studio Projects LSD2"
+    "Studio Projects LSD2",
+    "Neumann km140",
+    "Neumann km150",
+    "Neumann kk184",
+    "Neumann kk185"
 ].sort(); // Sort microphones alphabetically
 
 const devices = [
@@ -154,6 +158,7 @@ const recorders = [
     "Core Sound PDAudio-CF", 
     "Creative Labs Nomad JB3", 
     "Deity PR-2", 
+    "Sound Devices 788T",
     "Denon DN-F20R", 
     "Edirol R1", 
     "Edirol R4", 
