@@ -1,4 +1,3 @@
-// script.js
 document.addEventListener('DOMContentLoaded', () => {
     const artistSelect = document.getElementById('artist');
     const customArtistInput = document.getElementById('customArtist');
