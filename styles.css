@@ -1,9 +1,11 @@
-/* styles.css */
+/* Vintage-modern hybrid style */
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Courier New", monospace;
     margin: 0;
     padding: 20px;
-    background-color: #f7f7f7;
+    background-color: #1e1e1e; /* Dark gray background */
+    color: #d4d4d4; /* Off-white text */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,17 +14,20 @@ body {
 
 .container {
     max-width: 800px;
-    background-color: #fff;
+    background-color: #2b2b2b; /* Slightly lighter dark gray for container */
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #444; /* Darker gray border */
+    border-radius: 5px; /* Softer corners */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); /* Subtle shadow */
 }
 
 h1 {
     text-align: center;
-    font-size: 2em;
+    font-size: 1.8em;
     margin-bottom: 20px;
-    color: #333;
+    color: #a6e22e; /* Muted green */
+    border-bottom: 1px solid #555; /* Divider line for modern effect */
+    padding-bottom: 10px;
 }
 
 form {
@@ -32,20 +37,22 @@ form {
 }
 
 fieldset {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #fafafa;
+    border: 1px solid #555; /* Darker gray border for fieldsets */
+    padding: 15px;
+    border-radius: 4px; /* Slight rounding */
+    background-color: #3a3a3a; /* Dark gray background */
 }
 
 legend {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.1em;
+    color: #a6e22e; /* Muted green to match the header */
     padding: 0 8px;
 }
 
 label {
     font-weight: bold;
+    color: #d4d4d4;
     margin-top: 10px;
     display: inline-block;
 }
@@ -54,27 +61,35 @@ input[type="text"],
 input[type="date"],
 input[type="number"],
 select {
-    width: calc(100% - 16px);
-    padding: 10px;
+    width: 100%;
+    padding: 8px;
     margin-top: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    background-color: #1e1e1e; /* Darker input background */
+    color: #d4d4d4; /* Off-white text */
+    border: 1px solid #555; /* Darker border */
+    border-radius: 3px;
+    font-family: "Courier New", monospace;
     box-sizing: border-box;
 }
 
 button {
     padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
+    background-color: #3a3a3a; /* Dark gray for modern feel */
+    color: #a6e22e; /* Muted green text */
+    border: 1px solid #444;
     border-radius: 4px;
     cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s;
+    font-family: "Courier New", monospace;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #4a4a4a; /* Lighter on hover */
+}
+
+button:active {
+    background-color: #555; /* Darker gray when active */
+    transform: scale(0.98); /* Subtle "click" effect */
 }
 
 #downloadBtn {
@@ -83,11 +98,13 @@ button:hover {
 }
 
 #infoPreview {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background-color: #2b2b2b; /* Matching container background */
+    border: 1px solid #444;
     padding: 15px;
     white-space: pre-wrap;
     margin-top: 20px;
+    color: #d4d4d4; /* Off-white text for preview */
+    font-family: "Courier New", monospace;
 }
 
 #infoPreview div {
@@ -96,5 +113,22 @@ button:hover {
 
 #setlistContainer {
     margin-top: 10px;
+}
+
+/* Placeholder color for input fields */
+input::placeholder {
+    color: #666; /* Dark gray placeholder text */
+}
+
+/* Styling for dropdowns to match overall theme */
+select {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-family: "Courier New", monospace;
+}
+
+/* Buttons active effect */
+button:active {
+    background-color: #4d4d4d; /* Dark gray active */
 }
 
