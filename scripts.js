@@ -71,6 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEncore = function() {
         const encoreCount = Array.from(setlistContainer.children).filter(item => item.textContent.startsWith("Encore")).length;
 
+        // Update the first encore label to "Encore 1:" if it's currently labeled "Encore:" and a second encore is added
+        if (encoreCount === 1) {
+            Array.from(setlistContainer.children).forEach(item => {
+                if (item.textContent === "Encore:") {
+                    item.textContent = "Encore 1:";
+                }
+            });
+        }
+
         // Only add a blank line if the last item is not already a blank line
         if (setlistContainer.lastChild && setlistContainer.lastChild.innerHTML !== '&nbsp;') {
             const blankLine = document.createElement('div');
@@ -78,8 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
             setlistContainer.appendChild(blankLine);
         }
 
+        // Add the new encore label with correct numbering
         const encoreLabel = document.createElement('div');
-        encoreLabel.textContent = `Encore ${encoreCount + 1}:`;
+        encoreLabel.textContent = encoreCount === 0 ? "Encore:" : `Encore ${encoreCount + 1}:`;
         setlistContainer.appendChild(encoreLabel);
     };
 
@@ -89,78 +99,102 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Function to generate the text file for download
-window.generateFile = function() {
-    const artist = artistSelect.value === "Other" ? customArtistInput.value : artistSelect.value;
-    const concertDate = document.getElementById('concertDate').value;
-    const formattedDate = concertDate ? new Date(concertDate).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    }) : '';
+    window.generateFile = function() {
+        const artist = artistSelect.value === "Other" ? customArtistInput.value : artistSelect.value;
+        const concertDate = document.getElementById('concertDate').value;
+        const formattedDate = concertDate ? new Date(concertDate).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        }) : '';
 
-    const venue = venueSelect.value === "Other" ? customVenueInput.value : venueSelect.value;
-    const city = document.getElementById('city').value.trim();
-    const state = stateInput.style.display === 'block' ? stateInput.value.trim() : '';
-    const country = countrySelect.value === "Other" ? customCountryInput.value : countrySelect.value;
+        const venue = venueSelect.value === "Other" ? customVenueInput.value : venueSelect.value;
+        const city = document.getElementById('city').value.trim();
+        const state = stateInput.style.display === 'block' ? stateInput.value.trim() : '';
+        const country = countrySelect.value === "Other" ? customCountryInput.value : countrySelect.value;
 
-    // Construct the source chain conditionally
-    const sourceMic = sourceMicSelect.value === "Other" ? customMicInput.value : sourceMicSelect.value;
-    const tapingLocationValue = tapingLocation.value;
-    const micOrientationValue = micOrientation.value ? `/${micOrientation.value}` : ''; // Only add slash if orientation is selected
-    const sourcePreamp = sourcePreampSelect.value === "Other" ? customPreampInput.value : sourcePreampSelect.value;
-    const recorder = recorderSelect.value === "Other" ? customRecorderInput.value : recorderSelect.value;
-    const sourceBitrate = document.getElementById('sourceBitrate').value;
-
-    // Construct source chain based on selected inputs
-    let sourceChain = "";
-    if (sourceMic) {
-        sourceChain += sourceMic;
-        if (tapingLocationValue) {
-            sourceChain += ` (${tapingLocationValue}${micOrientationValue})`;
+        // Construct location string based on country selection
+        let location = city;
+        if (country === 'US') {
+            location += state ? `, ${state}` : ''; // City, State for USA
+        } else {
+            location += state ? `, ${state}, ${country}` : `, ${country}`; // City, State, Country for other countries
         }
-        if (sourcePreamp) sourceChain += ` > ${sourcePreamp}`;
-        if (recorder) sourceChain += ` > ${recorder}`;
-        if (sourceBitrate) sourceChain += ` (${sourceBitrate})`;
-    }
 
-    // Construct the transfer chain conditionally
-    const transferMedia = transferMediaSelect.value === "Other" ? customMediaInput.value : transferMediaSelect.value;
-    const processingSoftware = processingSoftwareSelect.value === "Other" ? customProcessingInput.value : processingSoftwareSelect.value;
-    const trackingSoftware = trackingSoftwareSelect.value === "Other" ? customTrackingInput.value : trackingSoftwareSelect.value;
-    const conversionSoftware = conversionSoftwareSelect.value === "Other" ? customConversionInput.value : conversionSoftwareSelect.value;
-    const outputFormat = outputFormatSelect.value;
-    const transferBitrate = document.getElementById('transferBitrate').value;
+        // Construct the source chain conditionally for each component
+        let sourceChain = "";
+        const sourceMic = sourceMicSelect.value === "Other" ? customMicInput.value : sourceMicSelect.value;
+        const tapingLocationValue = tapingLocation.value;
+        const micOrientationValue = micOrientation.value ? `/${micOrientation.value}` : ''; // Only add slash if orientation is selected
+        const sourcePreamp = sourcePreampSelect.value === "Other" ? customPreampInput.value : sourcePreampSelect.value;
+        const recorder = recorderSelect.value === "Other" ? customRecorderInput.value : recorderSelect.value;
+        const sourceBitrate = document.getElementById('sourceBitrate').value;
 
-    // Construct transfer chain based on selected inputs
-    let transferChain = "";
-    if (transferMedia) transferChain += transferMedia;
-    if (processingSoftware) transferChain += ` > ${processingSoftware}`;
-    if (trackingSoftware) transferChain += ` > ${trackingSoftware}`;
-    if (conversionSoftware) transferChain += ` > ${conversionSoftware}`;
-    if (outputFormat) transferChain += ` > ${outputFormat}`;
-    if (transferBitrate) transferChain += ` (${transferBitrate})`;
-
-    const runTimeHours = document.getElementById('runTimeHours').value;
-    const runTimeMinutes = document.getElementById('runTimeMinutes').value;
-    const runtime = runTimeHours || runTimeMinutes ? `run time: ${runTimeHours} hr ${runTimeMinutes} min` : '';
-
-    // Setlist with numbering and "Encore X:" labels with spaces before encores
-    let songNumber = 1;
-    const setlistItems = Array.from(setlistContainer.children).map((item) => {
-        const content = item.textContent.trim();
-        if (content.startsWith("Encore")) {
-            return `\n${content}`; // Add extra newline before "Encore X:"
-        } else if (content) {
-            return `${String(songNumber++).padStart(2, '0')} ${content}`; // Number only songs
+        if (sourceMic) {
+            sourceChain += sourceMic;
+            if (tapingLocationValue || micOrientationValue) {
+                sourceChain += ` (${tapingLocationValue || ''}${micOrientationValue})`;
+            }
         }
-    }).filter(Boolean).join('\n'); // Filter out any undefined entries
+        if (sourcePreamp) {
+            sourceChain += sourceChain ? ` > ${sourcePreamp}` : sourcePreamp;
+        }
+        if (recorder) {
+            sourceChain += sourceChain ? ` > ${recorder}` : recorder;
+        }
+        if (sourceBitrate) {
+            sourceChain += sourceChain ? ` (${sourceBitrate})` : `(${sourceBitrate})`;
+        }
 
-    // Concatenate all parts without labels for Artist, Date, Venue, Location, etc.
-    const content = `
+        // Construct the transfer chain conditionally for each component
+        let transferChain = "";
+        const transferMedia = transferMediaSelect.value === "Other" ? customMediaInput.value : transferMediaSelect.value;
+        const processingSoftware = processingSoftwareSelect.value === "Other" ? customProcessingInput.value : processingSoftwareSelect.value;
+        const trackingSoftware = trackingSoftwareSelect.value === "Other" ? customTrackingInput.value : trackingSoftwareSelect.value;
+        const conversionSoftware = conversionSoftwareSelect.value === "Other" ? customConversionInput.value : conversionSoftwareSelect.value;
+        const outputFormat = outputFormatSelect.value;
+        const transferBitrate = document.getElementById('transferBitrate').value;
+
+        if (transferMedia) {
+            transferChain += transferMedia;
+        }
+        if (processingSoftware) {
+            transferChain += transferChain ? ` > ${processingSoftware}` : processingSoftware;
+        }
+        if (trackingSoftware) {
+            transferChain += transferChain ? ` > ${trackingSoftware}` : trackingSoftware;
+        }
+        if (conversionSoftware) {
+            transferChain += transferChain ? ` > ${conversionSoftware}` : conversionSoftware;
+        }
+        if (outputFormat) {
+            transferChain += transferChain ? ` > ${outputFormat}` : outputFormat;
+        }
+        if (transferBitrate) {
+            transferChain += transferChain ? ` (${transferBitrate})` : `(${transferBitrate})`;
+        }
+
+        const runTimeHours = document.getElementById('runTimeHours').value;
+        const runTimeMinutes = document.getElementById('runTimeMinutes').value;
+        const runtime = runTimeHours || runTimeMinutes ? `run time: ${runTimeHours} hr ${runTimeMinutes} min` : '';
+
+        // Setlist with numbering and "Encore X:" labels with spaces before encores
+        let songNumber = 1;
+        const setlistItems = Array.from(setlistContainer.children).map((item) => {
+            const content = item.textContent.trim();
+            if (content.startsWith("Encore")) {
+                return `\n${content}`; // Add extra newline before "Encore X:"
+            } else if (content) {
+                return `${String(songNumber++).padStart(2, '0')} ${content}`; // Number only songs
+            }
+        }).filter(Boolean).join('\n'); // Filter out any undefined entries
+
+        // Concatenate all parts without labels for Artist, Date, Venue, Location, etc.
+        const content = `
 ${artist || ''}
 ${formattedDate || ''}
 ${venue || ''}
-${city}${state ? `, ${state}` : ''}${country ? `, ${country}` : ''}
+${location || ''}
 
 ${sourceChain ? `source: ${sourceChain}` : ''}
 ${transferChain ? `transfer: ${transferChain}` : ''}
@@ -168,18 +202,17 @@ ${transferChain ? `transfer: ${transferChain}` : ''}
 ${setlistItems}
 
 ${runtime}
-    `.trim();
+        `.trim();
 
-    // Download the file
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'info.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-};
-
+        // Download the file
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'info.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
 });
