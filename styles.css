@@ -1,11 +1,11 @@
-/* Vintage-modern hybrid style */
+/* Light, modern, and minimal style with pastel accents */
 
 body {
-    font-family: "Courier New", monospace;
+    font-family: "Arial", sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #1e1e1e; /* Dark gray background */
-    color: #d4d4d4; /* Off-white text */
+    background-color: #f0f4f8; /* Soft light background */
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,48 +13,45 @@ body {
 }
 
 .container {
-    max-width: 800px;
-    background-color: #2b2b2b; /* Slightly lighter dark gray for container */
-    padding: 20px;
-    border: 1px solid #444; /* Darker gray border */
-    border-radius: 5px; /* Softer corners */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    max-width: 700px;
+    background-color: #ffffff; /* White card background */
+    padding: 40px; /* Spacious padding */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
 h1 {
     text-align: center;
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    color: #a6e22e; /* Muted green */
-    border-bottom: 1px solid #555; /* Divider line for modern effect */
-    padding-bottom: 10px;
+    font-size: 2.2em;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px; /* Space between form sections */
 }
 
 fieldset {
-    border: 1px solid #555; /* Darker gray border for fieldsets */
-    padding: 15px;
-    border-radius: 4px; /* Slight rounding */
-    background-color: #3a3a3a; /* Dark gray background */
+    border: none; /* Remove fieldset border */
+    padding: 0; /* No extra padding */
 }
 
 legend {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1.1em;
-    color: #a6e22e; /* Muted green to match the header */
-    padding: 0 8px;
+    color: #5a67d8; /* Soft accent color for titles */
+    margin-bottom: 10px;
 }
 
 label {
-    font-weight: bold;
-    color: #d4d4d4;
-    margin-top: 10px;
+    font-weight: 500;
+    color: #333;
     display: inline-block;
+    margin-bottom: 5px;
 }
 
 input[type="text"],
@@ -62,34 +59,44 @@ input[type="date"],
 input[type="number"],
 select {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    background-color: #1e1e1e; /* Darker input background */
-    color: #d4d4d4; /* Off-white text */
-    border: 1px solid #555; /* Darker border */
-    border-radius: 3px;
-    font-family: "Courier New", monospace;
+    padding: 12px;
+    background-color: #f9fafb; /* Light input background */
+    color: #333;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px; /* Rounded input borders */
+    font-size: 1em;
+    transition: border-color 0.2s;
     box-sizing: border-box;
 }
 
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #5a67d8; /* Accent color on focus */
+    outline: none;
+}
+
 button {
-    padding: 10px 15px;
-    background-color: #3a3a3a; /* Dark gray for modern feel */
-    color: #a6e22e; /* Muted green text */
-    border: 1px solid #444;
-    border-radius: 4px;
+    padding: 15px;
+    background-color: #5a67d8; /* Primary button color */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px; /* Rounded button */
     cursor: pointer;
-    font-family: "Courier New", monospace;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: center;
     transition: background-color 0.2s, transform 0.2s;
 }
 
 button:hover {
-    background-color: #4a4a4a; /* Lighter on hover */
+    background-color: #4c51bf; /* Darker shade on hover */
 }
 
 button:active {
-    background-color: #555; /* Darker gray when active */
-    transform: scale(0.98); /* Subtle "click" effect */
+    background-color: #434190; /* Darker shade on click */
+    transform: scale(0.98); /* Click effect */
 }
 
 #downloadBtn {
@@ -97,38 +104,14 @@ button:active {
     margin-top: 20px;
 }
 
-#infoPreview {
-    background-color: #2b2b2b; /* Matching container background */
-    border: 1px solid #444;
-    padding: 15px;
-    white-space: pre-wrap;
-    margin-top: 20px;
-    color: #d4d4d4; /* Off-white text for preview */
-    font-family: "Courier New", monospace;
-}
-
-#infoPreview div {
-    margin: 5px 0;
-}
-
 #setlistContainer {
-    margin-top: 10px;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #edf2f7; /* Light gray for setlist background */
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
 }
 
-/* Placeholder color for input fields */
 input::placeholder {
-    color: #666; /* Dark gray placeholder text */
+    color: #a0aec0; /* Soft gray placeholder text */
 }
-
-/* Styling for dropdowns to match overall theme */
-select {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    font-family: "Courier New", monospace;
-}
-
-/* Buttons active effect */
-button:active {
-    background-color: #4d4d4d; /* Dark gray active */
-}
-
