@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Info Generator Tool</title>
+    <title>Tapers Info Generator Tool</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Info Generator Tool</h1>
+        <h1> Tapers Info Generator Tool</h1>
         <form id="infoForm">
             <!-- Artist Name Section -->
             <fieldset>
@@ -44,7 +44,15 @@
                 <legend>Location:</legend>
                 <select id="country" name="country" required>
                     <option value="">Select Country</option>
-                    <option value="US">United States</option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
                     <option value="Other">Other</option>
                 </select>
                 <input type="text" id="customCountry" placeholder="Enter custom country name" style="display:none;">
@@ -165,27 +173,35 @@
             </select>
                 <input type="text" id="customMic" placeholder="Enter custom microphone model" style="display:none;">
 
-                <label for="tapingLocation">Taping Location:</label>
-                <select id="tapingLocation" name="tapingLocation">
-                    <option value="">Select Taping Location</option>
-                    <option value="FOB">FOB</option>
-                    <option value="FOH">FOH</option>
-                    <option value="OTS">OTS</option>
-                    <option value="DFC">DFC</option>
-                    <option value="LOC">LOC</option>
-                    <option value="ROC">ROC</option>
-                </select>
+                <fieldset>
+                    <legend>Taping Location:</legend>
+                    <select id="tapingLocation" name="tapingLocation">
+                        <option value="">Select Taping Location</option>
+                        <option value="FOB">FOB</option>
+                        <option value="FOH">FOH</option>
+                        <option value="OTS">OTS</option>
+                        <option value="DFC">DFC</option>
+                        <option value="LOC">LOC</option>
+                        <option value="ROC">ROC</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="customTapingLocation" placeholder="Enter custom taping location" style="display:none;">
+                </fieldset>
 
-                <label for="micOrientation">Mic Orientation:</label>
-                <select id="micOrientation" name="micOrientation">
-                    <option value="">Select Mic Orientation</option>
-                    <option value="A/B">A/B</option>
-                    <option value="X/Y">X/Y</option>
-                    <option value="M/S">M/S</option>
-                    <option value="ORTF">ORTF</option>
-                    <option value="DIN">DIN</option>
-                    <option value="NOS">NOS</option>
-                </select>          
+                <fieldset>
+                    <legend>Mic Orientation:</legend>
+                    <select id="micOrientation" name="micOrientation">
+                        <option value="">Select Mic Orientation</option>
+                        <option value="A/B">A/B</option>
+                        <option value="X/Y">X/Y</option>
+                        <option value="M/S">M/S</option>
+                        <option value="ORTF">ORTF</option>
+                        <option value="DIN">DIN</option>
+                        <option value="NOS">NOS</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="customMicOrientation" placeholder="Enter custom mic orientation" style="display:none;">
+                </fieldset>      
 
                 <label for="sourcePreamp">Preamp/Mixer/Battery Box:</label>
                 <select id="sourcePreamp" name="sourcePreamp">
@@ -341,31 +357,45 @@
                 </select>
                 <input type="text" id="customMedia" placeholder="Enter custom media type" style="display:none;">
 
-                <label for="processingSoftware">Processing Software:</label>
-                <select id="processingSoftware" name="processingSoftware">
-                    <option value="">Select Processing Software</option>
-                    <option value="Sound Studio">Sound Studio</option>
-                    <option value="Adobe Audition">Adobe Audition</option>
-                    <option value="Other">Other</option>
-                </select>
-                <input type="text" id="customProcessing" placeholder="Enter custom processing software" style="display:none;">
+                <fieldset>
+                    <legend>Processing Software:</legend>
+                    <select id="processingSoftware" name="processingSoftware">
+                        <option value="">Select Processing Software</option>
+                        <option value="Audacity">Audacity</option>
+                        <option value="Adobe Audition">Adobe Audition</option>
+                        <option value="Soundforge">Soundforge</option>
+                        <option value="Wavelab">Wavelab</option>
+                        <option value="Izotope">Izotope</option>
+                        <option value="REAPER">REAPER</option>
+                        <option value="Samplitude">Samplitude</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="customProcessing" placeholder="Enter custom processing software" style="display:none;">
+                </fieldset>
 
-                <label for="trackingSoftware">Tracking Software:</label>
-                <select id="trackingSoftware" name="trackingSoftware">
-                    <option value="">Select Tracking Software</option>
-                    <option value="Pro Tools">Pro Tools</option>
-                    <option value="Other">Other</option>
-                </select>
-                <input type="text" id="customTracking" placeholder="Enter custom tracking software" style="display:none;">
+                <fieldset>
+                    <legend>Tracking Software:</legend>
+                    <select id="trackingSoftware" name="trackingSoftware">
+                        <option value="">Select Tracking Software</option>
+                        <option value="CD Wave">CD Wave</option>
+                        <option value="Audacity">Audacity</option>
+                        <option value="Samplitude">Samplitude</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="customTracking" placeholder="Enter custom tracking software" style="display:none;">
+                </fieldset>
 
-                <label for="conversionSoftware">Conversion Software:</label>
-                <select id="conversionSoftware" name="conversionSoftware">
-                    <option value="">Select Conversion Software</option>
-                    <option value="xACT">xACT</option>
-                    <option value="Audacity">Audacity</option>
-                    <option value="Other">Other</option>
-                </select>
-                <input type="text" id="customConversion" placeholder="Enter custom conversion software" style="display:none;">
+                <fieldset>
+                    <legend>Conversion Software:</legend>
+                    <select id="conversionSoftware" name="conversionSoftware">
+                        <option value="">Select Conversion Software</option>
+                        <option value="Trader's Little Helper">Trader's Little Helper</option>
+                        <option value="FLAC Frontend">FLAC Frontend</option>
+                        <option value="Audacity">Audacity</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="customConversion" placeholder="Enter custom conversion software" style="display:none;">
+                </fieldset>
 
                 <label for="outputFormat">Output Format:</label>
                 <select id="outputFormat" name="outputFormat">
@@ -403,6 +433,7 @@
                 <legend>Run Time:</legend>
                 <input type="number" id="runTimeHours" placeholder="Hours" min="0">
                 <input type="number" id="runTimeMinutes" placeholder="Minutes" min="0" max="59">
+                <input type="number" id="runTimeSeconds" placeholder="Seconds" min="0" max="59">
             </fieldset>
 
             <button type="button" id="downloadBtn" onclick="generateFile()">Download info.txt</button>
