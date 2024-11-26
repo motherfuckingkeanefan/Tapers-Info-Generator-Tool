@@ -1,11 +1,11 @@
-/* Light, modern, and minimal style with pastel accents */
+/* Bold and aggressive style */
 
 body {
-    font-family: "Arial", sans-serif;
+    font-family: "Arial Black", sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f0f4f8; /* Soft light background */
-    color: #333;
+    background-color: #1a1a1a; /* Dark background for high contrast */
+    color: #fff; /* Bright text for readability */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,45 +13,48 @@ body {
 }
 
 .container {
-    max-width: 700px;
-    background-color: #ffffff; /* White card background */
-    padding: 40px; /* Spacious padding */
-    border-radius: 12px; /* Rounded corners */
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    max-width: 800px;
+    background-color: #212121; /* Dark card background */
+    padding: 50px; /* Bold padding */
+    border-radius: 16px; /* Stronger rounded corners */
+    box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.6); /* Stronger shadow for depth */
+    border: 2px solid #5a67d8; /* Accent border for emphasis */
 }
 
 h1 {
     text-align: center;
-    font-size: 2.2em;
-    color: #333;
-    margin-bottom: 30px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-size: 2.8em; /* Larger font for prominence */
+    color: #f5f5f5;
+    margin-bottom: 40px;
+    font-weight: 900;
+    letter-spacing: 2px; /* Strong letter-spacing */
+    text-transform: uppercase; /* Aggressive uppercase text */
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 25px; /* Space between form sections */
+    gap: 30px; /* Larger spacing for dramatic effect */
 }
 
 fieldset {
-    border: none; /* Remove fieldset border */
-    padding: 0; /* No extra padding */
+    border: none; /* Minimalist fieldset style */
+    padding: 0;
 }
 
 legend {
-    font-weight: 600;
-    font-size: 1.1em;
-    color: #5a67d8; /* Soft accent color for titles */
-    margin-bottom: 10px;
+    font-weight: 800;
+    font-size: 1.3em;
+    color: #5a67d8; /* Strong accent color */
+    margin-bottom: 15px;
 }
 
 label {
-    font-weight: 500;
-    color: #333;
+    font-weight: 700;
+    color: #e2e8f0; /* Bright text for dark backgrounds */
     display: inline-block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    text-transform: uppercase; /* Aggressive style for labels */
 }
 
 input[type="text"],
@@ -59,13 +62,13 @@ input[type="date"],
 input[type="number"],
 select {
     width: 100%;
-    padding: 12px;
-    background-color: #f9fafb; /* Light input background */
-    color: #333;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px; /* Rounded input borders */
-    font-size: 1em;
-    transition: border-color 0.2s;
+    padding: 14px;
+    background-color: #333; /* Darker input background */
+    color: #fff; /* Bright text for contrast */
+    border: 2px solid #444; /* Stronger input borders */
+    border-radius: 10px; /* Pronounced rounded borders */
+    font-size: 1.1em;
+    transition: border-color 0.2s, background-color 0.2s;
     box-sizing: border-box;
 }
 
@@ -73,45 +76,48 @@ input[type="text"]:focus,
 input[type="date"]:focus,
 input[type="number"]:focus,
 select:focus {
-    border-color: #5a67d8; /* Accent color on focus */
+    border-color: #5a67d8; /* Bold accent on focus */
+    background-color: #222; /* Slightly darker background on focus */
     outline: none;
 }
 
 button {
-    padding: 15px;
-    background-color: #5a67d8; /* Primary button color */
-    color: #ffffff;
-    border: none;
-    border-radius: 8px; /* Rounded button */
+    padding: 18px;
+    background-color: #5a67d8; /* Bold primary button color */
+    color: #fff;
+    border: 2px solid #434190; /* Aggressive border */
+    border-radius: 10px; /* Strong rounded corners */
     cursor: pointer;
-    font-size: 1.1em;
-    font-weight: 600;
+    font-size: 1.2em;
+    font-weight: 800;
     text-align: center;
+    text-transform: uppercase; /* Bold and aggressive button text */
     transition: background-color 0.2s, transform 0.2s;
 }
 
 button:hover {
-    background-color: #4c51bf; /* Darker shade on hover */
+    background-color: #4c51bf; /* Darker and more intense on hover */
 }
 
 button:active {
     background-color: #434190; /* Darker shade on click */
-    transform: scale(0.98); /* Click effect */
+    transform: scale(0.95); /* Pronounced click effect */
 }
 
 #downloadBtn {
     align-self: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 #setlistContainer {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #edf2f7; /* Light gray for setlist background */
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #292929; /* Darker gray for setlist background */
+    border-radius: 10px; /* Bold rounded corners */
+    border: 2px solid #5a67d8; /* Accent border for setlist container */
+    color: #e2e8f0; /* Bright text for readability */
 }
 
 input::placeholder {
-    color: #a0aec0; /* Soft gray placeholder text */
+    color: #666; /* Subtle gray placeholder text */
 }
