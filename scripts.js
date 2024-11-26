@@ -23,36 +23,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const stateInput = document.getElementById('state');
     const customCountryInput = document.getElementById('customCountry');
     const tapingLocation = document.getElementById('tapingLocation');
+    const customTapingLocationInput = document.getElementById('customTapingLocation');
     const micOrientation = document.getElementById('micOrientation');
+    const customMicOrientationInput = document.getElementById('customMicOrientation');
 
     // Show custom input when "Other" is selected
-    function toggleCustomInput(selectElement, customInputId) {
-        const customInput = document.getElementById(customInputId);
+    function toggleCustomInput(selectElement, customInput) {
         customInput.style.display = selectElement.value === 'Other' ? 'block' : 'none';
     }
 
-    // Event listeners for gear dropdowns and other fields
     const dropdowns = [
-        { select: artistSelect, customInputId: 'customArtist' },
-        { select: venueSelect, customInputId: 'customVenue' },
-        { select: sourceMicSelect, customInputId: 'customMic' },
-        { select: sourcePreampSelect, customInputId: 'customPreamp' },
-        { select: recorderSelect, customInputId: 'customRecorder' },
-        { select: transferMediaSelect, customInputId: 'customMedia' },
-        { select: processingSoftwareSelect, customInputId: 'customProcessing' },
-        { select: trackingSoftwareSelect, customInputId: 'customTracking' },
-        { select: conversionSoftwareSelect, customInputId: 'customConversion' }
+        { select: artistSelect, customInput: customArtistInput },
+        { select: venueSelect, customInput: customVenueInput },
+        { select: sourceMicSelect, customInput: customMicInput },
+        { select: sourcePreampSelect, customInput: customPreampInput },
+        { select: recorderSelect, customInput: customRecorderInput },
+        { select: transferMediaSelect, customInput: customMediaInput },
+        { select: processingSoftwareSelect, customInput: customProcessingInput },
+        { select: trackingSoftwareSelect, customInput: customTrackingInput },
+        { select: conversionSoftwareSelect, customInput: customConversionInput },
+        { select: tapingLocation, customInput: customTapingLocationInput },
+        { select: micOrientation, customInput: customMicOrientationInput }
     ];
 
     dropdowns.forEach(item => {
         item.select.addEventListener('change', () => {
-            toggleCustomInput(item.select, item.customInputId);
+            toggleCustomInput(item.select, item.customInput);
         });
     });
 
     // Location selection
     countrySelect.addEventListener('change', function() {
-        stateInput.style.display = this.value === 'US' ? 'block' : 'none';
+        stateInput.style.display = this.value === 'United States' ? 'block' : 'none';
         customCountryInput.style.display = this.value === 'Other' ? 'block' : 'none';
     });
 
@@ -71,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEncore = function() {
         const encoreCount = Array.from(setlistContainer.children).filter(item => item.textContent.startsWith("Encore")).length;
 
-        // Update the first encore label to "Encore 1:" if it's currently labeled "Encore:" and a second encore is added
         if (encoreCount === 1) {
             Array.from(setlistContainer.children).forEach(item => {
                 if (item.textContent === "Encore:") {
@@ -80,14 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Only add a blank line if the last item is not already a blank line
         if (setlistContainer.lastChild && setlistContainer.lastChild.innerHTML !== '&nbsp;') {
             const blankLine = document.createElement('div');
             blankLine.innerHTML = '&nbsp;';
             setlistContainer.appendChild(blankLine);
         }
 
-        // Add the new encore label with correct numbering
         const encoreLabel = document.createElement('div');
         encoreLabel.textContent = encoreCount === 0 ? "Encore:" : `Encore ${encoreCount + 1}:`;
         setlistContainer.appendChild(encoreLabel);
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to clear the tracklist
     window.clearTracklist = function() {
-        setlistContainer.innerHTML = ''; // Clear all tracks
+        setlistContainer.innerHTML = '';
     };
 
     // Function to generate the text file for download
@@ -113,19 +112,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const state = stateInput.style.display === 'block' ? stateInput.value.trim() : '';
         const country = countrySelect.value === "Other" ? customCountryInput.value : countrySelect.value;
 
-        // Construct location string based on country selection
         let location = city;
-        if (country === 'US') {
-            location += state ? `, ${state}` : ''; // City, State for USA
+        if (country === 'United States') {
+            location += state ? `, ${state}` : '';
         } else {
-            location += state ? `, ${state}, ${country}` : `, ${country}`; // City, State, Country for other countries
+            location += `, ${country}`;
         }
 
-        // Construct the source chain conditionally for each component
         let sourceChain = "";
         const sourceMic = sourceMicSelect.value === "Other" ? customMicInput.value : sourceMicSelect.value;
-        const tapingLocationValue = tapingLocation.value;
-        const micOrientationValue = micOrientation.value ? `/${micOrientation.value}` : ''; // Only add slash if orientation is selected
+        const tapingLocationValue = tapingLocation.value === "Other" ? customTapingLocationInput.value : tapingLocation.value;
+        const micOrientationValue = micOrientation.value === "Other" ? customMicOrientationInput.value : micOrientation.value;
         const sourcePreamp = sourcePreampSelect.value === "Other" ? customPreampInput.value : sourcePreampSelect.value;
         const recorder = recorderSelect.value === "Other" ? customRecorderInput.value : recorderSelect.value;
         const sourceBitrate = document.getElementById('sourceBitrate').value;
@@ -133,20 +130,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sourceMic) {
             sourceChain += sourceMic;
             if (tapingLocationValue || micOrientationValue) {
-                sourceChain += ` (${tapingLocationValue || ''}${micOrientationValue})`;
+                sourceChain += ` (${tapingLocationValue || ''}${micOrientationValue ? `/${micOrientationValue}` : ''})`;
             }
         }
-        if (sourcePreamp) {
-            sourceChain += sourceChain ? ` > ${sourcePreamp}` : sourcePreamp;
-        }
-        if (recorder) {
-            sourceChain += sourceChain ? ` > ${recorder}` : recorder;
-        }
-        if (sourceBitrate) {
-            sourceChain += sourceChain ? ` (${sourceBitrate})` : `(${sourceBitrate})`;
-        }
+        if (sourcePreamp) sourceChain += sourceChain ? ` > ${sourcePreamp}` : sourcePreamp;
+        if (recorder) sourceChain += sourceChain ? ` > ${recorder}` : recorder;
+        if (sourceBitrate) sourceChain += sourceChain ? ` (${sourceBitrate})` : `(${sourceBitrate})`;
 
-        // Construct the transfer chain conditionally for each component
         let transferChain = "";
         const transferMedia = transferMediaSelect.value === "Other" ? customMediaInput.value : transferMediaSelect.value;
         const processingSoftware = processingSoftwareSelect.value === "Other" ? customProcessingInput.value : processingSoftwareSelect.value;
@@ -155,57 +145,40 @@ document.addEventListener('DOMContentLoaded', () => {
         const outputFormat = outputFormatSelect.value;
         const transferBitrate = document.getElementById('transferBitrate').value;
 
-        if (transferMedia) {
-            transferChain += transferMedia;
-        }
-        if (processingSoftware) {
-            transferChain += transferChain ? ` > ${processingSoftware}` : processingSoftware;
-        }
-        if (trackingSoftware) {
-            transferChain += transferChain ? ` > ${trackingSoftware}` : trackingSoftware;
-        }
-        if (conversionSoftware) {
-            transferChain += transferChain ? ` > ${conversionSoftware}` : conversionSoftware;
-        }
-        if (outputFormat) {
-            transferChain += transferChain ? ` > ${outputFormat}` : outputFormat;
-        }
-        if (transferBitrate) {
-            transferChain += transferChain ? ` (${transferBitrate})` : `(${transferBitrate})`;
-        }
+        if (transferMedia) transferChain += transferMedia;
+        if (processingSoftware) transferChain += transferChain ? ` > ${processingSoftware}` : processingSoftware;
+        if (trackingSoftware) transferChain += transferChain ? ` > ${trackingSoftware}` : trackingSoftware;
+        if (conversionSoftware) transferChain += transferChain ? ` > ${conversionSoftware}` : conversionSoftware;
+        if (outputFormat) transferChain += transferChain ? ` > ${outputFormat}` : outputFormat;
+        if (transferBitrate) transferChain += transferChain ? ` (${transferBitrate})` : `(${transferBitrate})`;
 
-        const runTimeHours = document.getElementById('runTimeHours').value;
-        const runTimeMinutes = document.getElementById('runTimeMinutes').value;
-        const runtime = runTimeHours || runTimeMinutes ? `run time: ${runTimeHours} hr ${runTimeMinutes} min` : '';
+        const runTimeHours = document.getElementById('runTimeHours').value || 0;
+        const runTimeMinutes = document.getElementById('runTimeMinutes').value || 0;
+        const runTimeSeconds = document.getElementById('runTimeSeconds').value || 0;
+        const runtime = `Run time: ${runTimeHours} hr ${runTimeMinutes} min ${runTimeSeconds} sec`;
 
-        // Setlist with numbering and "Encore X:" labels with spaces before encores
         let songNumber = 1;
         const setlistItems = Array.from(setlistContainer.children).map((item) => {
             const content = item.textContent.trim();
-            if (content.startsWith("Encore")) {
-                return `\n${content}`; // Add extra newline before "Encore X:"
-            } else if (content) {
-                return `${String(songNumber++).padStart(2, '0')} ${content}`; // Number only songs
-            }
-        }).filter(Boolean).join('\n'); // Filter out any undefined entries
+            if (content.startsWith("Encore")) return `\n${content}`;
+            return content ? `${String(songNumber++).padStart(2, '0')} ${content}` : null;
+        }).filter(Boolean).join('\n');
 
-        // Concatenate all parts without labels for Artist, Date, Venue, Location, etc.
         const content = `
 ${artist || ''}
 ${formattedDate || ''}
 ${venue || ''}
 ${location || ''}
 
-${sourceChain ? `source: ${sourceChain}` : ''}
-${transferChain ? `transfer: ${transferChain}` : ''}
+${sourceChain ? `Source: ${sourceChain}` : ''}
+${transferChain ? `Transfer: ${transferChain}` : ''}
 
 ${setlistItems}
 
 ${runtime}
         `.trim();
 
-        // Download the file
-        const blob = new Blob([content], { type: 'text/plain' });
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
