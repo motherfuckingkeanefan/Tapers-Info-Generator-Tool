@@ -1,11 +1,11 @@
-/* Bold and aggressive style */
+/* Classic 2000s Windows app style */
 
 body {
-    font-family: "Arial Black", sans-serif;
+    font-family: "Tahoma", sans-serif; /* Classic font choice for old Windows apps */
     margin: 0;
     padding: 20px;
-    background-color: #1a1a1a; /* Dark background for high contrast */
-    color: #fff; /* Bright text for readability */
+    background-color: #dcdcdc; /* Light gray background for a clean, neutral look */
+    color: #000; /* Black text for maximum readability */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,48 +13,47 @@ body {
 }
 
 .container {
-    max-width: 800px;
-    background-color: #212121; /* Dark card background */
-    padding: 50px; /* Bold padding */
-    border-radius: 16px; /* Stronger rounded corners */
-    box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.6); /* Stronger shadow for depth */
-    border: 2px solid #5a67d8; /* Accent border for emphasis */
+    max-width: 600px;
+    background-color: #f0f0f0; /* Light gray card background */
+    padding: 30px;
+    border-radius: 8px; /* Mild rounded corners for a soft look */
+    border: 1px solid #a8a8a8; /* Thin border to maintain a clean and structured look */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 h1 {
     text-align: center;
-    font-size: 2.8em; /* Larger font for prominence */
-    color: #f5f5f5;
-    margin-bottom: 40px;
-    font-weight: 900;
-    letter-spacing: 2px; /* Strong letter-spacing */
-    text-transform: uppercase; /* Aggressive uppercase text */
+    font-size: 2em;
+    color: #333; /* Darker color for headings */
+    margin-bottom: 30px;
+    font-weight: bold; /* Strong emphasis on the heading */
+    letter-spacing: 0.05em; /* Slight spacing for a clean typewriter feel */
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 30px; /* Larger spacing for dramatic effect */
+    gap: 20px;
 }
 
 fieldset {
-    border: none; /* Minimalist fieldset style */
-    padding: 0;
+    border: 1px solid #a8a8a8; /* Light border for fieldset */
+    padding: 15px;
+    border-radius: 4px; /* Slightly rounded corners for the fieldset */
 }
 
 legend {
-    font-weight: 800;
-    font-size: 1.3em;
-    color: #5a67d8; /* Strong accent color */
-    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #000;
+    margin-bottom: 10px;
 }
 
 label {
-    font-weight: 700;
-    color: #e2e8f0; /* Bright text for dark backgrounds */
+    font-weight: normal;
+    color: #333;
     display: inline-block;
-    margin-bottom: 10px;
-    text-transform: uppercase; /* Aggressive style for labels */
+    margin-bottom: 5px;
 }
 
 input[type="text"],
@@ -62,13 +61,12 @@ input[type="date"],
 input[type="number"],
 select {
     width: 100%;
-    padding: 14px;
-    background-color: #333; /* Darker input background */
-    color: #fff; /* Bright text for contrast */
-    border: 2px solid #444; /* Stronger input borders */
-    border-radius: 10px; /* Pronounced rounded borders */
-    font-size: 1.1em;
-    transition: border-color 0.2s, background-color 0.2s;
+    padding: 10px;
+    background-color: #fff; /* White background for inputs */
+    color: #333; /* Dark text for input fields */
+    border: 1px solid #a8a8a8; /* Light gray border */
+    border-radius: 4px; /* Mild rounded corners */
+    font-size: 1em;
     box-sizing: border-box;
 }
 
@@ -76,48 +74,47 @@ input[type="text"]:focus,
 input[type="date"]:focus,
 input[type="number"]:focus,
 select:focus {
-    border-color: #5a67d8; /* Bold accent on focus */
-    background-color: #222; /* Slightly darker background on focus */
+    border-color: #5c5c5c; /* Darker border on focus */
+    background-color: #e1e1e1; /* Slight gray background on focus */
     outline: none;
 }
 
 button {
-    padding: 18px;
-    background-color: #5a67d8; /* Bold primary button color */
+    padding: 12px;
+    background-color: #5a5a5a; /* Subtle gray button */
     color: #fff;
-    border: 2px solid #434190; /* Aggressive border */
-    border-radius: 10px; /* Strong rounded corners */
+    border: 1px solid #444; /* Darker border for buttons */
+    border-radius: 4px; /* Rounded corners for buttons */
     cursor: pointer;
-    font-size: 1.2em;
-    font-weight: 800;
+    font-size: 1.1em;
+    font-weight: bold;
     text-align: center;
-    text-transform: uppercase; /* Bold and aggressive button text */
-    transition: background-color 0.2s, transform 0.2s;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
 button:hover {
-    background-color: #4c51bf; /* Darker and more intense on hover */
+    background-color: #3e3e3e; /* Darker gray on hover */
 }
 
 button:active {
-    background-color: #434190; /* Darker shade on click */
-    transform: scale(0.95); /* Pronounced click effect */
+    background-color: #2d2d2d; /* Even darker on click */
+    transform: scale(0.98); /* Subtle click effect */
 }
 
 #downloadBtn {
     align-self: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 #setlistContainer {
     margin-top: 20px;
     padding: 15px;
-    background-color: #292929; /* Darker gray for setlist background */
-    border-radius: 10px; /* Bold rounded corners */
-    border: 2px solid #5a67d8; /* Accent border for setlist container */
-    color: #e2e8f0; /* Bright text for readability */
+    background-color: #e1e1e1; /* Slight gray for the setlist background */
+    border-radius: 5px; /* Soft rounded corners for the setlist */
+    border: 1px solid #a8a8a8; /* Light border for the setlist */
+    color: #333; /* Dark text for readability */
 }
 
 input::placeholder {
-    color: #666; /* Subtle gray placeholder text */
+    color: #888; /* Subtle placeholder text */
 }
