@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const runTimeHours = document.getElementById('runTimeHours').value || 0;
         const runTimeMinutes = document.getElementById('runTimeMinutes').value || 0;
         const runTimeSeconds = document.getElementById('runTimeSeconds').value || 0;
-        const runtime = `Run time: ${runTimeHours} hr ${runTimeMinutes} min ${runTimeSeconds} sec`;
+        const runtime = `run time: ${runTimeHours} hr ${runTimeMinutes} min ${runTimeSeconds} sec`;
 
         let songNumber = 1;
         const setlistItems = Array.from(setlistContainer.children).map((item) => {
@@ -170,8 +170,8 @@ ${formattedDate || ''}
 ${venue || ''}
 ${location || ''}
 
-${sourceChain ? `Source: ${sourceChain}` : ''}
-${transferChain ? `Transfer: ${transferChain}` : ''}
+${sourceChain ? `source: ${sourceChain}` : ''}
+${transferChain ? `transfer: ${transferChain}` : ''}
 
 ${setlistItems}
 
