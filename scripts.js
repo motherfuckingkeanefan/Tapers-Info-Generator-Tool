@@ -97,74 +97,80 @@ document.addEventListener('DOMContentLoaded', () => {
         setlistContainer.innerHTML = '';
     };
 
-    // Function to generate the text file for download
-    window.generateFile = function() {
-        const artist = artistSelect.value === "Other" ? customArtistInput.value : artistSelect.value;
-        const concertDate = document.getElementById('concertDate').value;
-        const formattedDate = concertDate ? new Date(concertDate).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        }) : '';
+// Function to generate the text file for download
+window.generateFile = function () {
+    const artist = artistSelect.value === "Other" ? customArtistInput.value : artistSelect.value;
+    const concertDate = document.getElementById('concertDate').value;
+    const formattedDate = concertDate ? new Date(concertDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }) : '';
 
-        const venue = venueSelect.value === "Other" ? customVenueInput.value : venueSelect.value;
-        const city = document.getElementById('city').value.trim();
-        const state = stateInput.style.display === 'block' ? stateInput.value.trim() : '';
-        const country = countrySelect.value === "Other" ? customCountryInput.value : countrySelect.value;
+    const venue = venueSelect.value === "Other" ? customVenueInput.value : venueSelect.value;
+    const city = document.getElementById('city').value.trim();
+    const state = stateInput.style.display === 'block' ? stateInput.value.trim() : '';
+    const country = countrySelect.value === "Other" ? customCountryInput.value : countrySelect.value;
 
-        let location = city;
-        if (country === 'United States') {
-            location += state ? `, ${state}` : '';
-        } else {
-            location += `, ${country}`;
+    let location = city;
+    if (country === 'United States') {
+        location += state ? `, ${state}` : '';
+    } else {
+        location += `, ${country}`;
+    }
+
+    let sourceChain = "";
+    const sourceMic = sourceMicSelect.value === "Other" ? customMicInput.value : sourceMicSelect.value;
+    const tapingLocationValue = tapingLocation.value === "Other" ? customTapingLocationInput.value : tapingLocation.value;
+    const micOrientationValue = micOrientation.value === "Other" ? customMicOrientationInput.value : micOrientation.value;
+    const sourcePreamp = sourcePreampSelect.value === "Other" ? customPreampInput.value : sourcePreampSelect.value;
+    const recorder = recorderSelect.value === "Other" ? customRecorderInput.value : recorderSelect.value;
+    const sourceBitrate = document.getElementById('sourceBitrate').value;
+
+    if (sourceMic) {
+        sourceChain += sourceMic;
+        if (tapingLocationValue || micOrientationValue) {
+            sourceChain += ` (${tapingLocationValue || ''}${micOrientationValue ? `/${micOrientationValue}` : ''})`;
         }
+    }
+    if (sourcePreamp) sourceChain += sourceChain ? ` > ${sourcePreamp}` : sourcePreamp;
+    if (recorder) sourceChain += sourceChain ? ` > ${recorder}` : recorder;
+    if (sourceBitrate) sourceChain += sourceChain ? ` (${sourceBitrate})` : `(${sourceBitrate})`;
 
-        let sourceChain = "";
-        const sourceMic = sourceMicSelect.value === "Other" ? customMicInput.value : sourceMicSelect.value;
-        const tapingLocationValue = tapingLocation.value === "Other" ? customTapingLocationInput.value : tapingLocation.value;
-        const micOrientationValue = micOrientation.value === "Other" ? customMicOrientationInput.value : micOrientation.value;
-        const sourcePreamp = sourcePreampSelect.value === "Other" ? customPreampInput.value : sourcePreampSelect.value;
-        const recorder = recorderSelect.value === "Other" ? customRecorderInput.value : recorderSelect.value;
-        const sourceBitrate = document.getElementById('sourceBitrate').value;
+    let transferChain = "";
+    const transferMedia = transferMediaSelect.value === "Other" ? customMediaInput.value : transferMediaSelect.value;
+    const processingSoftware = processingSoftwareSelect.value === "Other" ? customProcessingInput.value : processingSoftwareSelect.value;
+    const trackingSoftware = trackingSoftwareSelect.value === "Other" ? customTrackingInput.value : trackingSoftwareSelect.value;
+    const conversionSoftware = conversionSoftwareSelect.value === "Other" ? customConversionInput.value : conversionSoftwareSelect.value;
+    const outputFormat = outputFormatSelect.value;
+    const transferBitrate = document.getElementById('transferBitrate').value;
 
-        if (sourceMic) {
-            sourceChain += sourceMic;
-            if (tapingLocationValue || micOrientationValue) {
-                sourceChain += ` (${tapingLocationValue || ''}${micOrientationValue ? `/${micOrientationValue}` : ''})`;
-            }
-        }
-        if (sourcePreamp) sourceChain += sourceChain ? ` > ${sourcePreamp}` : sourcePreamp;
-        if (recorder) sourceChain += sourceChain ? ` > ${recorder}` : recorder;
-        if (sourceBitrate) sourceChain += sourceChain ? ` (${sourceBitrate})` : `(${sourceBitrate})`;
+    if (transferMedia) transferChain += transferMedia;
+    if (processingSoftware) transferChain += transferChain ? ` > ${processingSoftware}` : processingSoftware;
+    if (trackingSoftware) transferChain += transferChain ? ` > ${trackingSoftware}` : trackingSoftware;
+    if (conversionSoftware) transferChain += transferChain ? ` > ${conversionSoftware}` : conversionSoftware;
+    if (outputFormat) transferChain += transferChain ? ` > ${outputFormat}` : outputFormat;
+    if (transferBitrate) transferChain += transferChain ? ` (${transferBitrate})` : `(${transferBitrate})`;
 
-        let transferChain = "";
-        const transferMedia = transferMediaSelect.value === "Other" ? customMediaInput.value : transferMediaSelect.value;
-        const processingSoftware = processingSoftwareSelect.value === "Other" ? customProcessingInput.value : processingSoftwareSelect.value;
-        const trackingSoftware = trackingSoftwareSelect.value === "Other" ? customTrackingInput.value : trackingSoftwareSelect.value;
-        const conversionSoftware = conversionSoftwareSelect.value === "Other" ? customConversionInput.value : conversionSoftwareSelect.value;
-        const outputFormat = outputFormatSelect.value;
-        const transferBitrate = document.getElementById('transferBitrate').value;
+    const runTimeHours = parseInt(document.getElementById('runTimeHours').value) || 0;
+    const runTimeMinutes = parseInt(document.getElementById('runTimeMinutes').value) || 0;
+    const runTimeSeconds = parseInt(document.getElementById('runTimeSeconds').value) || 0;
 
-        if (transferMedia) transferChain += transferMedia;
-        if (processingSoftware) transferChain += transferChain ? ` > ${processingSoftware}` : processingSoftware;
-        if (trackingSoftware) transferChain += transferChain ? ` > ${trackingSoftware}` : trackingSoftware;
-        if (conversionSoftware) transferChain += transferChain ? ` > ${conversionSoftware}` : conversionSoftware;
-        if (outputFormat) transferChain += transferChain ? ` > ${outputFormat}` : outputFormat;
-        if (transferBitrate) transferChain += transferChain ? ` (${transferBitrate})` : `(${transferBitrate})`;
+    // Dynamically construct runtime string
+    let runtime = '';
+    if (runTimeHours > 0) runtime += `${runTimeHours} hr `;
+    if (runTimeMinutes > 0) runtime += `${runTimeMinutes} min `;
+    if (runTimeSeconds > 0) runtime += `${runTimeSeconds} sec`;
+    runtime = runtime.trim(); // Remove any extra spaces
 
-        const runTimeHours = document.getElementById('runTimeHours').value || 0;
-        const runTimeMinutes = document.getElementById('runTimeMinutes').value || 0;
-        const runTimeSeconds = document.getElementById('runTimeSeconds').value || 0;
-        const runtime = `run time: ${runTimeHours} hr ${runTimeMinutes} min ${runTimeSeconds} sec`;
+    let songNumber = 1;
+    const setlistItems = Array.from(setlistContainer.children).map((item) => {
+        const content = item.textContent.trim();
+        if (content.startsWith("Encore")) return `\n${content}`;
+        return content ? `${String(songNumber++).padStart(2, '0')} ${content}` : null;
+    }).filter(Boolean).join('\n');
 
-        let songNumber = 1;
-        const setlistItems = Array.from(setlistContainer.children).map((item) => {
-            const content = item.textContent.trim();
-            if (content.startsWith("Encore")) return `\n${content}`;
-            return content ? `${String(songNumber++).padStart(2, '0')} ${content}` : null;
-        }).filter(Boolean).join('\n');
-
-        const content = `
+    const content = `
 ${artist || ''}
 ${formattedDate || ''}
 ${venue || ''}
@@ -175,17 +181,18 @@ ${transferChain ? `transfer: ${transferChain}` : ''}
 
 ${setlistItems}
 
-${runtime}
-        `.trim();
+${runtime ? `run time: ${runtime}` : ''}
+    `.trim();
 
-        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'info.txt';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    };
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'info.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+};
+
 });
